@@ -1,0 +1,81 @@
+﻿@model IEnumerable<PersonalExerciseRecordUsingRepository.Models.ExerciseRecord>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/JS/Search.js"></script>
+    <script src="~/JS/PopUp.js"></script>
+    <link href="~/CSS/PopUp.css" rel="stylesheet" />
+</head>
+<body>
+    <br />
+    <h2>Search Exercise Name</h2>
+    <input type="text" placeholder="Search.." name="search">
+    <button type="submit"><i class="fa fa-search" onsubmit="SearchSchool()"></i></button>
+
+    <h2>Current Records Of Your Exercise</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExerciseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExerciseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DurationInMinutes)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExerciseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExerciseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DurationInMinutes)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <h2>Record Your Exercise Data</h2>
+    <p>Click on the button at the bottom of this page to record your Exercise Data.</p>
+
+    <button class="open-button" onclick="openForm()">Open Form</button>
+
+    <div class="form-popup" id="myForm">
+        <form action="@Url.Action("Create", "Home")" class="form-container", method="post">
+            <h1>Login</h1>
+
+            <label for="ExerciseName"><b>Exercise Name</b></label>
+            <input type="text" placeholder="Enter Exercise Name" name="ExerciseName" required>
+
+            <label for="ExerciseDate"><b>Exercise Date</b></label>
+            <input type="date" placeholder="Enter Date" name="ExerciseDate" required>
+
+            <label for="DurationInMinutes"><b>Exercise Duration (mins)</b></label>
+            <input type="number" placeholder="Enter Duration" name="DurationInMinutes" required>
+
+            <button type="submit" class="btn">Create</button>
+            <button type="submit" class="btn cancel" onclick="closeForm()">Close</button>
+
+        </form>
+    </div>
+
+
+</body>
+</html>
